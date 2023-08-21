@@ -4,7 +4,11 @@ import React from 'react'
 
 function Index({ fruits }) {
     return (
-        <div>{
+        <div>
+            <nav>
+                <a href="/fruits/new">Create New Fruit</a>    
+            </nav>
+            {
             fruits.map((fruit, i) => {
                 return (
                     <li key={i}>
