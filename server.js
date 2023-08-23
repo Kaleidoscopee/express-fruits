@@ -1,9 +1,22 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 // const port = 3000; //windows 5000 for mac users
 const fruits = require('./models/fruits.js');
 const vegetables = require('./models/vegetables.js');
 const port = 3000;
+const mongoose = require('mongoose')
+
+// CONNECT WITH MONGOOSE
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true
+})
+
+mongoose.connection.once('open', ()=>{
+    console.log('connected to mongoDB')
+})
 
 //Setting up view engine
 app.set('views', __dirname + '/views');
