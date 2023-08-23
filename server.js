@@ -8,10 +8,10 @@ const port = 3000;
 const mongoose = require('mongoose')
 
 // CONNECT WITH MONGOOSE
-mongoose.connect(process.env.MONGO_URI, {
+mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true
+    //removed bc deprecated -> useCreateIndex: true
 })
 
 mongoose.connection.once('open', ()=>{
