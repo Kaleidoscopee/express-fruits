@@ -72,13 +72,13 @@ app.post('/fruits', async (req, res)=>{
 });
 
 //show
-app.get('/fruits/:index', (req, res)=>{
-    res.render('fruits/Show', { //second param must be an object
-        fruit: fruits[req.params.index] 
-        //there will be a variable available inside the ejs file called fruit, 
-        //its value is fruits[req.params.indexOfFruitsArray]
-    });
+app.get('/fruits/:id', async (req, res)=> {
+    const oneFruit = await Fruit.findById(req.params.id)
+    res.render('fruits/Show', {
+        fruit: oneFruit
+    })
 });
+
 
 //Vegetables
 app.get('/vegetables', (req, res)=>{
