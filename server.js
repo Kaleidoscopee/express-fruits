@@ -3,6 +3,7 @@ const app = express();
 // const port = 3000; //windows 5000 for mac users
 const fruits = require('./models/fruits.js');
 const vegetables = require('./models/vegetables.js');
+const port = 3000;
 
 //Setting up view engine
 app.set('views', __dirname + '/views');
@@ -60,6 +61,21 @@ app.get('/vegetables', (req, res)=>{
     });
 });
 
+//New vegetable
+app.get('/vegetables/new', (req, res) => {
+    res.render("vegetables/new");
+});
+
+//show vegetable
+app.get('/vegetables/:index', (req, res)=>{
+    res.render('vegetables/Show', { //second param must be an object
+        vegetable: vegetables[req.params.index] 
+        //there will be a variable available inside the ejs file called vegetable, 
+        //its value is fruits[req.params.indexOfVegetablesArray]
+    });
+});
+
+
 app.get('/vegetables/:indexOfVegetablesArray', (req, res)=>{
     res.render('vegetables/Show', { //second param must be an object
         vegetables: vegetables[req.params.indexOfVegetablessArray] 
@@ -69,6 +85,6 @@ app.get('/vegetables/:indexOfVegetablesArray', (req, res)=>{
 });
 
 
-app.listen(3000, ()=>{
+app.listen(port, ()=>{
     console.log(`listening`)
 });
