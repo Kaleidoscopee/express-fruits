@@ -5,6 +5,7 @@ const app = express();
 const fruits = require('./models/fruits.js');
 const vegetables = require('./models/vegetables.js');
 const port = 3000;
+const Fruit = require('./models/fruits.js')
 const mongoose = require('mongoose')
 
 // CONNECT WITH MONGOOSE
@@ -34,11 +35,23 @@ app.use(express.urlencoded({extended: false}));
 
 //ROUTES
 //index 
-app.get('/fruits', (req, res)=>{
-    res.render("fruits/Index", {
-        fruits: fruits
-    });
-});
+app.get('/fruits', async function(req, res) {
+    const foundFruits = await Fruit.find({})
+    res.render('fruits/Index', {
+        fruits: foundFruits
+    })
+})
+
+
+
+
+// app.get('/fruits', (req, res)=>{
+//     Fruit.find({}, (error, allFruits)=> {
+//         res.render("fruits/Index", {
+//             fruits: allFruits
+//         });
+//     })
+// });
 
 //New
 app.get('/fruits/new', (req, res) => {
@@ -46,16 +59,16 @@ app.get('/fruits/new', (req, res) => {
 });
 
 //CREATE = POST
-app.post('/fruits', (req, res)=>{
+app.post('/fruits', async (req, res)=>{
     console.log("this is te created fruit", req.body)
     if(req.body.readyToEat === 'on'){
         req.body.readyToEat = true;
     } else {
         req.body.readyToEat = false;
     }
-    fruits.push(req.body)
-    console.log("The fruits array", fruits)
-    res.redirect('/fruits')
+    // console.log("The fruits array", fruits)
+    const createdFruit = await Fruit.create(req.body)
+    res.redirect('fruits')
 });
 
 //show

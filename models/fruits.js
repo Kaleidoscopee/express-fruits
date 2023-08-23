@@ -12,7 +12,9 @@ const fruitSchema = new mongoose.Schema({
     readyToEat: Boolean
 })
 
+const Fruit = mongoose.model('Fruit', fruitSchema)
 
+module.exports = Fruit;
 
 
 
